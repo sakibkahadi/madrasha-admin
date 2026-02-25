@@ -1,5 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import Providers from "./providers";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { LayoutProvider } from "@/components/LayoutProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/contexts/AuthContext";
+import GlobalLayout from "@/components/Layouts/GLobalLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +27,25 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+           <GlobalLayout>
+             <AuthProvider>
+        <ThemeProvider>
+          
+            <LayoutProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </LayoutProvider>
+
+            <Toaster />
+         
+        </ThemeProvider>
+         </AuthProvider>
+         </GlobalLayout>
+         </Providers>
+        
       </body>
     </html>
   );
