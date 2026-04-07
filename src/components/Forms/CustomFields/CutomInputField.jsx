@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-
 const CutomInputField = ({
   form,
   name,
@@ -15,10 +14,11 @@ const CutomInputField = ({
   required,
   placeholder,
   disabled,
-  isPassword, type
+  isPassword,
+  type,
 }) => {
   return (
-    <FormField 
+    <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
@@ -27,7 +27,8 @@ const CutomInputField = ({
             {label} {required && <span className="text-[#E94949]">*</span>}
           </FormLabel>
           <FormControl>
-            <Input type={isPassword ? "password" : type}
+            <Input
+              type={isPassword ? "password" : type}
               className="h-10 rounded-[10px] border-none bg-white px-4 text-[14px]! leading-6 font-normal text-[#000000] placeholder:text-[#7F7F7F]"
               placeholder={placeholder}
               disabled={disabled}

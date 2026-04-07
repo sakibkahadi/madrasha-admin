@@ -306,8 +306,7 @@ export default function SchoolSubscriptionsTable({ data }) {
   };
 
   const handleCreateNew = () => {
-    // Navigate to create page
-    router.push("/dashboard/madrasa-subscriptions/create");
+    setRegisterOpen(true);
   };
 
   const handleDeleteClick = (school) => {
@@ -380,7 +379,7 @@ export default function SchoolSubscriptionsTable({ data }) {
 
         </div>
       </div>
-       <RegisterDialog open={registerOpen} onOpenChange={setRegisterOpen}  uuid={selectedMadrasha} />
+       <RegisterDialog open={registerOpen} onOpenChange={setRegisterOpen} setSelectedMadrasha={setSelectedMadrasha}  uuid={selectedMadrasha} />
        <StatusChangeDialog open={statusOpen} onOpenChange={setStatusOpen}  uuid={selectedMadrasha}  />
 
            {/* Add an outer container with overflow auto to create scrollbar */}

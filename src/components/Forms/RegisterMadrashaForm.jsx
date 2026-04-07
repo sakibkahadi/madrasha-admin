@@ -27,10 +27,12 @@ export const formSchema = z.object({
   file_id: z.number().nullable().optional(),
 });
 
-const RegisterMadrashaForm = ({ onNext, uuid }) => {
+const RegisterMadrashaForm = ({ onNext, uuid,open }) => {
   const { mutate } = useMadrashaCreate();
-
-  const { data } = useMadrashaShow(uuid);
+console.log(open,'checking open')
+  const { data } = useMadrashaShow(uuid,{
+  enabled: open, // 👈 only fetch when open
+});
   
   const setMadrashaId = useMadrashaStore((state) => state.setMadrashaId);
   const form = useForm({
@@ -49,11 +51,28 @@ const RegisterMadrashaForm = ({ onNext, uuid }) => {
       file_id:null
     },
   });
-
+useEffect(() => {
+  if (!open) {
+    form.reset({
+      name: "",
+      domain_name: "",
+      description: "",
+      address: "",
+      post_office: "",
+      police_station: "",
+      district: "",
+      comment: "",
+      status: "Pending",
+      file: null,
+      file_id: null,
+    });
+  }
+}, [open]);
 useEffect(() => {
   const showData = data?.data;
 
   if (uuid && showData) {
+      if (!open) return;
     form.reset({
       name: showData?.name || "",
       domain_name: showData?.domain_name || "",
@@ -68,7 +87,7 @@ useEffect(() => {
       file_id: showData?.upload_files?.[0]?.id || null,
     });
   }
-}, [uuid, data]);
+}, [uuid, data,open]);
 
   const handleSignUpSubmit = async (data) => {
     
