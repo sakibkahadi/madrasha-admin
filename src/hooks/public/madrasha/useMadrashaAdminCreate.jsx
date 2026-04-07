@@ -1,10 +1,10 @@
 import APIClient from "@/services/api-client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 
 const useMadrashaAdminCreate = () => {
-//   const queryClient = useQueryClient();
+ const queryClient = useQueryClient();
   const apiClient = new APIClient();
 
   const endPoint = "/public/madrasah-admin/adminCreateUpdate";

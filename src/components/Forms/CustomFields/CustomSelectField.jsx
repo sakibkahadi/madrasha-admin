@@ -34,7 +34,7 @@ const CustomSelectField = ({
 
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger className="h-[40px] rounded-[10px] border-none bg-white px-4 text-[14px]! leading-6 font-normal text-[#000000] placeholder:text-[#7F7F7F]">
+              <SelectTrigger className="h-[40px] rounded-[10px] border-none bg-white px-4 text-[14px]! leading-6 font-normal text-[#000000] placeholder:text-[#7F7F7F] w-full">
                 <SelectValue  placeholder={placeholder} />
               </SelectTrigger>
 

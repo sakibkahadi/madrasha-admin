@@ -4,18 +4,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 
-const useMadrashaCreate = () => {
+const useMadrashaStatusChange = () => {
  const queryClient = useQueryClient();
   const apiClient = new APIClient();
 
-  const endPoint = `${ApiEndPoints.MADRASHA.CREATE_UPDATE}`;
+  const endPoint = `${ApiEndPoints.MADRASHA.STATUS_CHANGE}`;
   return useMutation({
     mutationFn: (data) => {
       return apiClient.post(endPoint, data);
     },
 
     onSuccess: (data) => {
-        toast.success("Madrasha created successfully!");
+        toast.success("Madrasha Status updated successfully!");
       queryClient.invalidateQueries({
         queryKey: [ApiEndPoints.MADRASHA.LIST],
         exact: false,
@@ -35,4 +35,4 @@ const useMadrashaCreate = () => {
   });
 };
 
-export default useMadrashaCreate;
+export default useMadrashaStatusChange;

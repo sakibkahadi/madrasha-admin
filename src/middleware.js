@@ -6,6 +6,7 @@ export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!session;
   const isAuthRoute = nextUrl.pathname.startsWith("/auth/");
+  const isHomeRoute = nextUrl.pathname === "/"
   const isPublicAsset =
     nextUrl.pathname.startsWith("/assets/") ||
     nextUrl.pathname.startsWith("/_next/") ||
@@ -18,8 +19,8 @@ export default auth((req) => {
   }
 
   // If logged in and trying to access auth routes, redirect to home
-  if (isLoggedIn && isAuthRoute) {
-    return NextResponse.redirect(new URL("/", req.url));
+  if (isLoggedIn && isAuthRoute || isHomeRoute) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   // If not logged in and trying to access protected routes, redirect to login

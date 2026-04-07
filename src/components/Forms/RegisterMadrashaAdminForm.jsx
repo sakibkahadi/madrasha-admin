@@ -50,6 +50,7 @@ export const formSchema = z.object({
 const RegisterMadrashaAdminForm = ({ onOpenChange }) => {
   const { mutate } = useMadrashaAdminCreate();
   const madrashaId = useMadrashaStore((state) => state.madrashaId);
+  console.log(madrashaId,'checkindg data')
 
   const form = useForm({
     resolver: zodResolver(formSchema),

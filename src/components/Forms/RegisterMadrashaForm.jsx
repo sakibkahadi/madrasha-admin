@@ -82,18 +82,19 @@ useEffect(() => {
       });
 
       if (uuid) {
-        formData.append("uuid",uuid);
+        formData.append("madrasah_uuid",uuid);
       }
-      if (file_id) {
+      if (data.file_id) {
         formData.append("file_id",data.file_id);
       }
       mutate(formData, {
         onSuccess: (data) => {
+          console.log(data?.data?.id)
           setMadrashaId(data?.data?.id);
           onNext();
         },
       });
-      // onNext();
+      
     } catch (error) {
       console.error("Sign up error:", error);
     } finally {

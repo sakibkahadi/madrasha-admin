@@ -11,7 +11,7 @@ import RegisterMadrashaForm from "../Forms/RegisterMadrashaForm";
 import RegisterMadrashaAdminForm from "../Forms/RegisterMadrashaAdminForm";
 import { useState } from "react";
 
-const RegisterDialog = ({ open, onOpenChange, isAdmin=false,uuid }) => {
+const RegisterDialog = ({ open, onOpenChange,uuid }) => {
 
   const [activeStep, setActiveStep] = useState(1);
   const steps = [
@@ -72,7 +72,7 @@ const RegisterDialog = ({ open, onOpenChange, isAdmin=false,uuid }) => {
           </div>
           {
             activeStep === 1 && (
-              <RegisterMadrashaForm   onNext={() => setActiveStep(2)} />
+              <RegisterMadrashaForm  uuid={uuid}  onNext={() => setActiveStep(2)} />
             )
           }
           {

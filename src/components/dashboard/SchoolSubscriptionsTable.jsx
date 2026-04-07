@@ -53,6 +53,9 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import RegisterDialog from "../Dialogs/RegisterDialog";
+import useMadrashaDelete from "@/hooks/public/madrasha/useMadrashaDelete";
+import StatusChangeDialog from "../Dialogs/StatusChangeDialog";
+
 
 export default function SchoolSubscriptionsTable({ data }) {
    const [registerOpen, setRegisterOpen] = useState(false);
@@ -62,10 +65,12 @@ export default function SchoolSubscriptionsTable({ data }) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedSchool, setSelectedSchool] = useState(null);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [selectedMadrasha,setSelectedMadrasha] = useState(null)
+  const [selectedMadrasha,setSelectedMadrasha] = useState(null);
+  const [statusOpen,setStatusOpen] = useState(null);
+  const {mutate:DeleteMadrasha} = useMadrashaDelete()
 
   const filteredData = useMemo(() => {
-    return data.filter((school) => {
+    return data?.filter((school) => {
       if (statusFilter === "All") return true;
       return school.status === statusFilter;
     });
@@ -230,19 +235,26 @@ export default function SchoolSubscriptionsTable({ data }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 onClick={() => handleView(school)}
                 className="cursor-pointer"
               >
                 <Eye className="mr-2 h-4 w-4" />
                 <span>View</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem
                 onClick={() => {setRegisterOpen(true); setSelectedMadrasha(school.uuid)}}
                 className="cursor-pointer"
               >
                 <Pencil className="mr-2 h-4 w-4" />
                 <span>Edit</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {setStatusOpen(true); setSelectedMadrasha(school.uuid)}}
+                className="cursor-pointer"
+              >
+                <Pencil className="mr-2 h-4 w-4" />
+                <span>Status</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -300,15 +312,16 @@ export default function SchoolSubscriptionsTable({ data }) {
 
   const handleDeleteClick = (school) => {
     setSelectedSchool(school);
+    setSelectedMadrasha(school.uuid)
     setDeleteDialogOpen(true);
+    
   };
 
   const handleDelete = () => {
-    if (selectedSchool) {
-      toast.success(`Deleted ${selectedSchool.name}`);
-      // Implementation for delete action
-      setDeleteDialogOpen(false);
-    }
+    console.log(selectedMadrasha,'checking se')
+    DeleteMadrasha({
+      uuid:selectedMadrasha
+    })
   };
  
 
@@ -367,7 +380,8 @@ export default function SchoolSubscriptionsTable({ data }) {
 
         </div>
       </div>
-       <RegisterDialog open={registerOpen} onOpenChange={setRegisterOpen} isAdmin uuid={selectedMadrasha} />
+       <RegisterDialog open={registerOpen} onOpenChange={setRegisterOpen}  uuid={selectedMadrasha} />
+       <StatusChangeDialog open={statusOpen} onOpenChange={setStatusOpen}  uuid={selectedMadrasha}  />
 
            {/* Add an outer container with overflow auto to create scrollbar */}
            <div className="rounded-md border">

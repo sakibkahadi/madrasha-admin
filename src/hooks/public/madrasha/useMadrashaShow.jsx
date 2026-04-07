@@ -1,15 +1,16 @@
 import { ApiEndPoints } from "@/constants/ApiEndPoints";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const useMadrashaShow = (data) => {
     const apiClient = new APIClient();
 
     return useQuery({
-        queryKey: [`${ApiEndPoints.Madrasha.SHOW}`, data],
+        queryKey: [`${ApiEndPoints.MADRASHA.SHOW}`, data],
         enabled: !!data,
         queryFn: () =>
-            apiClient.getAll(`${ApiEndPoints.Madrasha.SHOW}?uuid=${data}`),
+            apiClient.getAll(`${ApiEndPoints.MADRASHA.SHOW}?uuid=${data}`),
         onError: (err) => {
             console.error(err);
             toast.error(
