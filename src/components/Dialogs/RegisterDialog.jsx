@@ -25,8 +25,8 @@ const RegisterDialog = ({ open, onOpenChange, uuid,setSelectedMadrasha }) => {
     }
   }, [open]);
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-225 z-999 max-h-[80vh]">
+    <Dialog  open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-225 z-999 max-h-[80vh]  border-none">
         <DialogHeader>
           <DialogTitle></DialogTitle>
           <DialogDescription></DialogDescription>

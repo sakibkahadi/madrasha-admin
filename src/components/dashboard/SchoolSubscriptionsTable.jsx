@@ -306,6 +306,8 @@ export default function SchoolSubscriptionsTable({ data }) {
   };
 
   const handleCreateNew = () => {
+    // if somehow prev madrasha id exist then make it null before open register dialog
+    setSelectedMadrasha(null);
     setRegisterOpen(true);
   };
 
